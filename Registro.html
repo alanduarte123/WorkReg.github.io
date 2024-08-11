@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Horas Trabajadas</title>
+	<link rel="icon" type="image/x-icon" href="icons/icono1.ico"sizes="32x32">
+    <link rel="stylesheet" href="style.css">
+</head>
+   <body>
+      <h1 id="titulos"> Registro de Horas Trabajadas</h1>
+	  </div><div id="logo">
+	  <img id="logos" src="icons/logos.png" class="logos">
+	  <div id="text">
+	  <h1>Bienvenido a WorkReg</h1>
+      <p>WorkReg es una aplicación web diseñada para facilitar el registro y seguimiento de tus horas y días de trabajo. Con una interfaz intuitiva y fácil de usar, podrás gestionar tu tiempo de manera eficiente y tener un control preciso sobre tu jornada laboral. Registra tus entradas y salidas, organiza tu horario y obtén informes detallados con facilidad. Author: AlanDF</p></div>
+	  </div>
+      <div class="container">
+      <div class="main-content">
+      <form id="trabajoForm">
+         <input type="hidden" id="editIndex" value="-1">
+         <label for="fecha">Fecha:</label>
+         <input type="date" id="fecha" required>
+         <label for="horaEntrada">Hora de Entrada:</label>
+         <input type="time" id="horaEntrada" required>
+         <label for="horaSalida">Hora de Salida:</label>
+         <input type="time" id="horaSalida" required>
+         <label for="fictoPropina">Cantidad Ficto Propina:</label>
+         <input type="number" id="fictoPropina"step="1" value="0" min="0">
+         <button type="submit" id="submitBtn">Agregar Registro</button>
+      </form>
+      <div class="controles">
+         <button id="guardarBtn">Guardar Registros</button>
+         <button id="exportarBtn">Exportar a CSV</button>
+      </div>
+		<div class="tablal">
+		  <table id="registrosTabla">
+			 <thead>
+				<tr id = "tablaBorde">
+				   <th>Fecha</th>
+				   <th>Entrada</th>
+				   <th>Salida</th>
+				   <th>Horas Normales</th>
+				   <th>Horas Nocturnas</th>
+				   <th>Cantidad Ficto Propina</th>
+				   <th>Acciones</th>
+				</tr>
+			 </thead>
+			 <tbody></tbody>
+		  </table>
+		 </div>
+      <div id="resumen"></div>
+	  <div id="alert" class="alert">
+        <h3 id="alertText"></h3>
+      </div>
+	  <div class="mode">
+	  <button class="button button1"onclick="change(this)"button>
+	  </div>
+	  <div class="modea">
+	  <img src="icons/sun.png" class="sun">
+	  <img src="icons/moon.png" class="moon">
+	  </div>
+	  <div class="upbar"></div>
+      <div class="sidebar">
+         <img src="icons/cat-gray.gif" class="gift">
+		 <img src="icons/cat-gray-s.gif" class="gifts">
+         <h3>Seleccionar Período</h3\>
+         <select id="anoSelect"></select>
+         <select id="mesSelect"></select>
+         <button id="cargarPeriodoBtn" class="cargar-periodo-btn">Cargar Período</button>
+    </div>
+	<div class="foot"></div>
+    <script src="script.js"></script>
+</body>
+</html>
