@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Horas Trabajadas</title>
 	<link rel="icon" type="image/x-icon" href="icons/icono1.ico"sizes="32x32">
     <link rel="stylesheet" href="style.css">
@@ -15,7 +15,8 @@
 	  <h1>Bienvenido a WorkReg</h1>
       <p>WorkReg es una aplicación web diseñada para facilitar el registro y seguimiento de tus horas y días de trabajo.
 	  Con una interfaz intuitiva y fácil de usar, podrás gestionar tu tiempo de manera eficiente y tener un control preciso sobre tu jornada laboral.
-	  Registra tus entradas y salidas, organiza tu horario y obtén informes detallados con facilidad. Author: AlanDF v1.1.0</p></div>
+	  Registra tus entradas y salidas, organiza tu horario y obtén informes detallados con facilidad.
+	  Author: AlanDF v1.1.10</p></div>
 	  </div>
       <div class="container">
       <div class="main-content">
@@ -67,11 +68,14 @@
          <img src="icons/cat-gray.gif" class="gift">
 		 <img src="icons/cat-gray-s.gif" class="gifts">
          <h3>Seleccionar Período</h3\>
-         <select id="anoSelect"></select>
-         <select id="mesSelect"></select>
+         <select id="anoSelect" style="width:90%"></select>
+         <select id="mesSelect" style="width:90%"></select>
          <button id="cargarPeriodoBtn" class="cargar-periodo-btn">Cargar Período</button>
     </div>
 	<div class="foot"></div>
+	<div id="welcome-message" class="hidden">
+        <img src="icons/zoomi.gif" class="zgift">
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

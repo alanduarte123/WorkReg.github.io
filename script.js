@@ -14,7 +14,32 @@
          const TARIFA_HORA_NORMAL = 216.24;
          const TARIFA_HORA_NOCTURNA = 259.49;
          const TARIFA_FICTO_PROPINA = 196.60;
-         
+
+		document.addEventListener("DOMContentLoaded", function() {
+			// Check if the message has been shown before
+			if (!localStorage.getItem('welcomeMessageShownsa')) {
+				const welcomeMessage = document.getElementById('welcome-message');
+
+				// Initially hide the message
+				welcomeMessage.style.display = 'none';
+
+				// Show the message after 1 second
+				setTimeout(function() {
+					welcomeMessage.style.display = 'block';
+
+					// Hide the message after 2 seconds
+					setTimeout(function() {
+						welcomeMessage.style.display = 'none';
+						// Set the flag in localStorage to remember that the message has been shown
+						localStorage.setItem('welcomeMessageShownsa', 'true');
+					}, 3000); // 2 seconds
+				}, 500); // 1 second
+			} else {
+				// If the message has been shown before, make sure it's hidden
+				document.getElementById('welcome-message').style.display = 'none';
+			}
+		});
+
          // Inicializar selectores de año y mes
 const anoActual = new Date().getFullYear();
 for (let i = anoActual - 9; i <= anoActual + 9; i++) {
@@ -351,22 +376,35 @@ logo.addEventListener("click", function(event) {
 document.addEventListener("click", function() {
     logo.classList.remove("expanded");
 });
-/*// Detección del dispositivo1
+// Detección del dispositivo
 function ajustarConfiguracionSegunDispositivo() {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
 	
     if (isMobile) {
 		var tableHeaders = document.querySelectorAll('.tablal th'); // Selecciona todos los th dentro de .tablal
 		var sidebar = document.querySelector('.sidebar');
+		var upbar = document.querySelector('.upbar');
 		var sidebarH3 = document.querySelector('.sidebar h3'); // Selecciona el h3 dentro de sidebar
-		
+
 					document.getElementById('titulos').style.fontSize="4vw";
                     document.querySelector('.alert').style.left="76%";
                     document.querySelector('.alert').style.bottom="70%";
                     document.querySelector('.alert').style.height= '50px'
                     document.querySelector('.alert').style.width= '130px';
+					
+					document.querySelector('.gift').style.left="84%";
+					document.querySelector('.gift').style.top="5.1%";
+					document.querySelector('.gifts').style.left="84%";
+					document.querySelector('.gifts').style.top="5.9%";
+					upbar.style.left="83%";
+					upbar.style.top="4.7%";
+					var moon = document.querySelector('.moon');
+					moon.style.display = 'none';
+					moon.style.top = '2.5px';
+					
 					sidebar.style.position= "fixed";
-					sidebar.style.left="76%";
+					sidebar.style.left="70%";
+					sidebar.style.top="7.65%";
 					sidebar.style.height="160px";
 					sidebar.style.width=" 130px";
 					// Modifica el h3 dentro de la sidebar
@@ -387,64 +425,19 @@ function ajustarConfiguracionSegunDispositivo() {
                     document.querySelector('.alert').style.bottom="200px";
                     document.querySelector('.alert').style.height= '50px'
                     document.querySelector('.alert').style.width= '130px';
-					sidebar.style.position= "fixed";
-					sidebar.style.left="84%";
-					sidebar.style.height="180px";
-					sidebar.style.width=" 150px";
-					// Modifica el h3 dentro de la sidebar
-					sidebarH3.style.position = "absolute";
 					
-					sidebarH3.style.top = "0px"; // Ajusta la posición vertical
-					sidebarH3.style.left = "0px"; // Ajusta la posición horizontal
-					tableHeaders.forEach(th => {
-                    th.style.fontSize = "100%"; // Ajusta el tamaño de la fuente para dispositivos móviles
-                    })     
-       
-    }
-}
-*/
-// Detección del dispositivo
-function ajustarConfiguracionSegunDispositivo() {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-	
-    if (isMobile) {
-		var tableHeaders = document.querySelectorAll('.tablal th'); // Selecciona todos los th dentro de .tablal
-		var sidebar = document.querySelector('.sidebar');
-		var sidebarH3 = document.querySelector('.sidebar h3'); // Selecciona el h3 dentro de sidebar
-		
-					document.getElementById('titulos').style.fontSize="4vw";
-                    document.querySelector('.alert').style.left="76%";
-                    document.querySelector('.alert').style.bottom="70%";
-                    document.querySelector('.alert').style.height= '50px'
-                    document.querySelector('.alert').style.width= '130px';
-					document.querySelector('.foot').style.width= '100%';
+					document.querySelector('.gift').style.left="84%";
+					document.querySelector('.gift').style.top="11.3%";
+					document.querySelector('.gifts').style.left="84%";
+					document.querySelector('.gifts').style.top="13.2%";
+					
+					var moon = document.querySelector('.moon');
+					moon.style.display = 'none';
+					moon.style.top = '2.5px';
+					
 					sidebar.style.position= "fixed";
-					sidebar.style.left="23%";
-					sidebar.style.top="80%";
-					sidebar.style.height="110px";
-					sidebar.style.width=" 230px";
-					// Modifica el h3 dentro de la sidebar
-					sidebarH3.style.position = "absolute";
-					sidebarH3.style.top = "-20px"; // Ajusta la posición vertical
-					sidebarH3.style.left = "10px"; // Ajusta la posición horizontal
-                    sidebarH3.style.fontweight="4";
-                    tableHeaders.forEach(th => {
-                    th.style.fontSize = "60%"; // Ajusta el tamaño de la fuente para dispositivos móviles
-                    })       
-    } else {
-        // Configuración para computadoras
-		var sidebar = document.querySelector('.sidebar');
-		var sidebarH3 = document.querySelector('.sidebar h3'); // Selecciona el h3 dentro de sidebar
-		var tableHeaders = document.querySelectorAll('.tablal th'); // Selecciona todos los th dentro de .tablal		
-					document.getElementById('titulos').style.fontSize="2vw";
-                    document.querySelector('.alert').style.left="85%";
-                    document.querySelector('.alert').style.bottom="200px";
-                    document.querySelector('.alert').style.height= '50px'
-                    document.querySelector('.alert').style.width= '130px';
-					document.querySelector('.foot').style.width= '100%';
-					sidebar.style.position= "fixed";
-					sidebar.style.left="84%";
-					sidebar.style.top="16.5%";
+					sidebar.style.left="76%";
+					sidebar.style.top="17.55%";
 					sidebar.style.height="180px";
 					sidebar.style.width=" 150px";
 					// Modifica el h3 dentro de la sidebar
