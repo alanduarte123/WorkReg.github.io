@@ -85,12 +85,11 @@
 		 }
 		 .sun{
 		 position: relative;
-		 top:0px;
-		 left:2px;
+		 top: 0px;
+		 left: 2px;
 		 height: 50px;
 		 width: 50px;
-		 filter:
-		 drop-shadow(0 0 7px yellow);
+		 filter: drop-shadow(0 0 7px yellow);
 		
 		 }
 		 .moon{

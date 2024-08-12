@@ -378,7 +378,7 @@ document.addEventListener("click", function() {
 });
 // Detección del dispositivo
 function ajustarConfiguracionSegunDispositivo() {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const isMobile = window.matchMedia("(max-width: 720px)").matches;
 	
     if (isMobile) {
 		var tableHeaders = document.querySelectorAll('.tablal th'); // Selecciona todos los th dentro de .tablal
@@ -402,6 +402,7 @@ function ajustarConfiguracionSegunDispositivo() {
 					moon.style.display = 'none';
 					moon.style.top = '2.5px';
 					
+					
 					sidebar.style.position= "fixed";
 					sidebar.style.left="70%";
 					sidebar.style.top="7.65%";
@@ -419,6 +420,7 @@ function ajustarConfiguracionSegunDispositivo() {
         // Configuración para computadoras
 		var sidebar = document.querySelector('.sidebar');
 		var sidebarH3 = document.querySelector('.sidebar h3'); // Selecciona el h3 dentro de sidebar
+		var upbar = document.querySelector('.upbar');
 		var tableHeaders = document.querySelectorAll('.tablal th'); // Selecciona todos los th dentro de .tablal		
 					document.getElementById('titulos').style.fontSize="2vw";
                     document.querySelector('.alert').style.left="85%";
@@ -426,14 +428,16 @@ function ajustarConfiguracionSegunDispositivo() {
                     document.querySelector('.alert').style.height= '50px'
                     document.querySelector('.alert').style.width= '130px';
 					
-					document.querySelector('.gift').style.left="84%";
-					document.querySelector('.gift').style.top="11.3%";
-					document.querySelector('.gifts').style.left="84%";
-					document.querySelector('.gifts').style.top="13.2%";
-					
+					document.querySelector('.gift').style.left="83.5%";
+					document.querySelector('.gift').style.top="11.9%";
+					document.querySelector('.gifts').style.left="83.5%";
+					document.querySelector('.gifts').style.top="13.6%";
+					upbar.style.left="83%";
+					upbar.style.top="11%";
 					var moon = document.querySelector('.moon');
 					moon.style.display = 'none';
 					moon.style.top = '2.5px';
+					
 					
 					sidebar.style.position= "fixed";
 					sidebar.style.left="76%";
