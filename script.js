@@ -1,8 +1,12 @@
 // Configuración de Firebase (reemplaza con tus propias credenciales)
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO_ID.firebaseapp.com",
-    projectId: "TU_PROYECTO_ID"
+  apiKey: "AIzaSyCqmYlvwkHnNbzXHRqQCUCtXcHt7UdZR_0",
+  authDomain: "saratonga-e93a9.firebaseapp.com",
+  projectId: "saratonga-e93a9",
+  storageBucket: "saratonga-e93a9.appspot.com",
+  messagingSenderId: "474226117969",
+  appId: "1:474226117969:web:1577ca3b4365edae535770",
+  measurementId: "G-7SRKHC8GJ6"
 };
 
 // Inicializar Firebase
