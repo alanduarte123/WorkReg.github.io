@@ -1,84 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>WebSocket Text Sender</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            text-align: center;
-        }
-        input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 5px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo Firebase</title>
 </head>
 <body>
-    <div id="container">
-        <input type="text" id="textInput" placeholder="Enter text here">
-        <br>
-        <button id="sendMessage">Send to Server</button>
-        <button id="receiveMessages">Receive Messages</button>
-        <div id="result"></div>
-        <div id="receivedMessages"></div>
-    </div>
-    <script>
-        const ws = new WebSocket('ws://192.168.1.111:8080'); // Reemplaza <PC_IP> con la IP de tu PC
+    <h1>Ejemplo de Firebase con HTML y JavaScript</h1>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Nombre" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Guardar</button>
+    </form>
 
-        ws.onopen = () => {
-            console.log('Connected to WebSocket server');
-        };
+    <h2>Usuarios Guardados</h2>
+    <ul id="userList"></ul>
 
-        ws.onmessage = event => {
-            try {
-                const messages = JSON.parse(event.data);
-                if (Array.isArray(messages)) {
-                    const receivedMessagesDiv = document.getElementById('receivedMessages');
-                    receivedMessagesDiv.innerHTML = '<h3>Received Messages:</h3>';
-                    messages.forEach((message, index) => {
-                        receivedMessagesDiv.innerHTML += `<p>${index + 1}: ${message.text}</p>`;
-                    });
-                } else {
-                    document.getElementById('result').innerText = 'Server: ' + event.data;
-                }
-            } catch (e) {
-                console.error('Error parsing message:', e);
-            }
-        };
+    <!-- Firebase App (la base de todo) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
 
-        ws.onerror = error => {
-            console.error('WebSocket error:', error);
-        };
+    <!-- Firebase Firestore (base de datos) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
-        document.getElementById('sendMessage').addEventListener('click', () => {
-            const textInput = document.getElementById('textInput').value;
-            if (textInput.trim()) {
-                ws.send(textInput);
-                document.getElementById('textInput').value = '';
-                document.getElementById('result').innerText = 'Message sent!';
-            } else {
-                document.getElementById('result').innerText = 'Please enter some text.';
-            }
-        });
-
-        document.getElementById('receiveMessages').addEventListener('click', () => {
-            ws.send('GET_MESSAGES');
-        });
-    </script>
+    <!-- Tu archivo JavaScript -->
+    <script src="app.js"></script>
 </body>
 </html>
