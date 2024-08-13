@@ -1,71 +1,84 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Proyecto con Firebase</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Agregar los scripts de Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <title>WebSocket Text Sender</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="titulos">Guardar Datos con Firebase</h1>
-        <form id="data-form">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="value">Valor:</label>
-            <input type="number" id="value" name="value" required>
-            <button type="submit">Guardar</button>
-        </form>
-        <div id="status-message"></div>
+    <div id="container">
+        <input type="text" id="textInput" placeholder="Enter text here">
+        <br>
+        <button id="sendMessage">Send to Server</button>
+        <button id="receiveMessages">Receive Messages</button>
+        <div id="result"></div>
+        <div id="receivedMessages"></div>
     </div>
-
-    <!-- Configuración de Firebase -->
     <script>
-        // Tu configuración de Firebase
-         const firebaseConfig = {
-  apiKey: "AIzaSyCqmYlvwkHnNbzXHRqQCUCtXcHt7UdZR_0",
-  authDomain: "saratonga-e93a9.firebaseapp.com",
-  projectId: "saratonga-e93a9",
-  storageBucket: "saratonga-e93a9.appspot.com",
-  messagingSenderId: "474226117969",
-  appId: "1:474226117969:web:1577ca3b4365edae535770",
-  measurementId: "G-7SRKHC8GJ6"
-};
-  };
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+        const ws = new WebSocket('ws://192.168.1.111:8080'); // Reemplaza <PC_IP> con la IP de tu PC
 
-        // Inicializa Firebase
-        firebase.initializeApp(firebaseConfig);
+        ws.onopen = () => {
+            console.log('Connected to WebSocket server');
+        };
 
-        // Referencia a la base de datos
-        const database = firebase.database();
+        ws.onmessage = event => {
+            try {
+                const messages = JSON.parse(event.data);
+                if (Array.isArray(messages)) {
+                    const receivedMessagesDiv = document.getElementById('receivedMessages');
+                    receivedMessagesDiv.innerHTML = '<h3>Received Messages:</h3>';
+                    messages.forEach((message, index) => {
+                        receivedMessagesDiv.innerHTML += `<p>${index + 1}: ${message.text}</p>`;
+                    });
+                } else {
+                    document.getElementById('result').innerText = 'Server: ' + event.data;
+                }
+            } catch (e) {
+                console.error('Error parsing message:', e);
+            }
+        };
 
-        // Manejo del formulario
-        document.getElementById('data-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const value = document.getElementById('value').value;
-            
-            guardarDatos({ name: name, value: parseFloat(value) });
+        ws.onerror = error => {
+            console.error('WebSocket error:', error);
+        };
+
+        document.getElementById('sendMessage').addEventListener('click', () => {
+            const textInput = document.getElementById('textInput').value;
+            if (textInput.trim()) {
+                ws.send(textInput);
+                document.getElementById('textInput').value = '';
+                document.getElementById('result').innerText = 'Message sent!';
+            } else {
+                document.getElementById('result').innerText = 'Please enter some text.';
+            }
         });
 
-        // Función para guardar datos en Firebase
-        function guardarDatos(dato) {
-            const referencia = database.ref('datos');
-            referencia.push(dato)
-                .then(() => {
-                    document.getElementById('status-message').innerText = "Datos guardados exitosamente.";
-                    document.getElementById('data-form').reset();
-                })
-                .catch((error) => {
-                    document.getElementById('status-message').innerText = "Error al guardar los datos: " + error.message;
-                });
-        }
+        document.getElementById('receiveMessages').addEventListener('click', () => {
+            ws.send('GET_MESSAGES');
+        });
     </script>
 </body>
 </html>
