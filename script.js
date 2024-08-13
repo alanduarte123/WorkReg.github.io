@@ -3,10 +3,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCqmYlvwkHnNbzXHRqQCUCtXcHt7UdZR_0",
   authDomain: "saratonga-e93a9.firebaseapp.com",
   projectId: "saratonga-e93a9",
-  storageBucket: "saratonga-e93a9.appspot.com",
-  messagingSenderId: "474226117969",
-  appId: "1:474226117969:web:1577ca3b4365edae535770",
-  measurementId: "G-7SRKHC8GJ6"
+  
 };
 
 // Inicializar Firebase
