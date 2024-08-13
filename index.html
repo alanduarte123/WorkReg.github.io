@@ -3,80 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Horas Trabajadas</title>
-	<link rel="icon" type="image/x-icon" href="icons/icono1.ico"sizes="32x32">
-    <link rel="stylesheet" href="style.css">
+    <title>Mi Proyecto con Firebase</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Agregar los scripts de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
-   <body>
-      <h1 id="titulos">WorkReg</h1>
-	  </div><div id="logo">
-	  <img id="logos" src="icons/logos.png" class="logos">
-	  <div id="text">
-	  <h1>Bienvenido a WorkReg</h1>
-      <p>WorkReg es una aplicación web diseñada para facilitar el registro y seguimiento de tus horas y días de trabajo.
-	  Con una interfaz intuitiva y fácil de usar, podrás gestionar tu tiempo de manera eficiente y tener un control preciso sobre tu jornada laboral.
-	  Registra tus entradas y salidas, organiza tu horario y obtén informes detallados con facilidad.
-	  Author: AlanDF v1.1.10</p></div>
-	  </div>
-      <div class="container">
-      <div class="main-content">
-      <form id="trabajoForm">
-         <input type="hidden" id="editIndex" value="-1">
-         <label for="fecha">Fecha:</label>
-         <input type="date" id="fecha" required>
-         <label for="horaEntrada">Hora de Entrada:</label>
-         <input type="time" id="horaEntrada" required>
-         <label for="horaSalida">Hora de Salida:</label>
-         <input type="time" id="horaSalida" required>
-         <label for="fictoPropina">Cantidad Ficto Propina:</label>
-         <input type="number" id="fictoPropina"step="1" value="0" min="0">
-         <button type="submit" id="submitBtn">Agregar Registro</button>
-      </form>
-      <div class="controles">
-         <button id="guardarBtn">Guardar Registros</button>
-         <button id="exportarBtn">Exportar a CSV</button>
-      </div>
-		<div class="tablal">
-		  <table id="registrosTabla">
-			 <thead>
-				<tr id = "tablaBorde">
-				   <th>Fecha</th>
-				   <th>Entrada</th>
-				   <th>Salida</th>
-				   <th>Horas Normales</th>
-				   <th>Horas Nocturnas</th>
-				   <th>Cantidad Ficto Propina</th>
-				   <th>Acciones</th>
-				</tr>
-			 </thead>
-			 <tbody></tbody>
-		  </table>
-		 </div>
-      <div id="resumen"></div>
-	  <div id="alert" class="alert">
-        <h3 id="alertText"></h3>
-      </div>
-	  <div class="upbar"></div>
-      <div class="sidebar">
-         <img src="icons/cat-gray.gif" class="gift">
-		 <img src="icons/cat-gray-s.gif" class="gifts">
-         <h3>Seleccionar Período</h3\>
-         <select id="anoSelect" style="width:90%"></select>
-         <select id="mesSelect" style="width:90%"></select>
-         <button id="cargarPeriodoBtn" class="cargar-periodo-btn">Cargar Período</button>
+<body>
+    <div class="container">
+        <h1 id="titulos">Guardar Datos con Firebase</h1>
+        <form id="data-form">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="value">Valor:</label>
+            <input type="number" id="value" name="value" required>
+            <button type="submit">Guardar</button>
+        </form>
+        <div id="status-message"></div>
     </div>
-	  <div class="mode">
-	  <button class="button button1"onclick="change(this)"button>
-	  </div>
-	  <div class="modea">
-	  <img src="icons/sun.png" class="sun">
-	  <img src="icons/moon.png" class="moon">
-	  </div>
-	  
-	<div class="foot"></div>
-	<div id="welcome-message" class="hidden">
-        <img src="icons/zoomi.gif" class="zgift">
-    </div>
-    <script src="script.js"></script>
+
+    <!-- Configuración de Firebase -->
+    <script>
+        // Tu configuración de Firebase
+         const firebaseConfig = {
+    apiKey: "AIzaSyCqmYlvwkHnNbzXHRqQCUCtXcHt7UdZR_0",
+    authDomain: "saratonga-e93a9.firebaseapp.com",
+    projectId: "saratonga-e93a9",
+    storageBucket: "saratonga-e93a9.appspot.com",
+    messagingSenderId: "474226117969",
+    appId: "1:474226117969:web:1577ca3b4365edae535770",
+    measurementId: "G-7SRKHC8GJ6"
+  };
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+        // Inicializa Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Referencia a la base de datos
+        const database = firebase.database();
+
+        // Manejo del formulario
+        document.getElementById('data-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const value = document.getElementById('value').value;
+            
+            guardarDatos({ name: name, value: parseFloat(value) });
+        });
+
+        // Función para guardar datos en Firebase
+        function guardarDatos(dato) {
+            const referencia = database.ref('datos');
+            referencia.push(dato)
+                .then(() => {
+                    document.getElementById('status-message').innerText = "Datos guardados exitosamente.";
+                    document.getElementById('data-form').reset();
+                })
+                .catch((error) => {
+                    document.getElementById('status-message').innerText = "Error al guardar los datos: " + error.message;
+                });
+        }
+    </script>
 </body>
 </html>
