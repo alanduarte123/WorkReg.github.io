@@ -3,26 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo Firebase</title>
+    <title>Guardar Nombres en GitHub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ejemplo de Firebase con HTML y JavaScript</h1>
-    <form id="userForm">
-        <input type="text" id="name" placeholder="Nombre" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <button type="submit">Guardar</button>
-    </form>
 
-    <h2>Usuarios Guardados</h2>
-    <ul id="userList"></ul>
+    <h1>Guardar Nombres en GitHub</h1>
 
-    <!-- Incluye Firebase App (la base de todo) -->
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+    <input type="text" id="nameInput" placeholder="Escribe un nombre">
+    <button onclick="saveName()">Guardar</button>
 
-    <!-- Incluye Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"></script>
+    <script>
+        async function saveName() {
+            const nameInput = document.getElementById('nameInput');
+            const name = nameInput.value;
 
-    <!-- Tu archivo JavaScript -->
-    <script src="script.js"></script>
+            if (!name) {
+                alert("Por favor, escribe un nombre.");
+                return;
+            }
+
+            const repoOwner = 'TU_NOMBRE_DE_USUARIO'; // Reemplaza con tu nombre de usuario de GitHub
+            const repoName = 'TU_REPOSITORIO'; // Reemplaza con el nombre de tu repositorio
+            const filePath = 'nombres.txt'; // Reemplaza con la ruta del archivo en el repositorio
+            const githubToken = 'TU_TOKEN_DE_ACCESO'; // Reemplaza con tu token de acceso personal
+
+            // Obtiene el contenido actual del archivo
+            const fileUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+            const headers = {
+                'Authorization': `token ${githubToken}`,
+                'Content-Type': 'application/json'
+            };
+
+            let fileResponse = await fetch(fileUrl, { headers });
+            let fileSha = '';
+            let fileContent = '';
+
+            if (fileResponse.ok) {
+                const fileData = await fileResponse.json();
+                fileSha = fileData.sha;
+                fileContent = atob(fileData.content);
+            }
+
+            // Agrega el nuevo nombre
+            fileContent += name + '\n';
+
+            // Convierte el contenido actualizado a Base64
+            const encodedContent = btoa(fileContent);
+
+            // Crea el commit
+            const commitResponse = await fetch(fileUrl, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    message: `Añadido nombre: ${name}`,
+                    content: encodedContent,
+                    sha: fileSha
+                })
+            });
+
+            if (commitResponse.ok) {
+                alert("Nombre guardado con éxito.");
+                nameInput.value = '';
+            } else {
+                alert("Error al guardar el nombre.");
+            }
+        }
+    </script>
+
 </body>
 </html>
