@@ -33,12 +33,11 @@
                 return;
             }
 
-            const repoOwner = 'TU_NOMBRE_DE_USUARIO'; // Reemplaza con tu nombre de usuario de GitHub
-            const repoName = 'TU_REPOSITORIO'; // Reemplaza con el nombre de tu repositorio
-            const filePath = 'nombres.txt'; // Reemplaza con la ruta del archivo en el repositorio
-            const githubToken = 'TU_TOKEN_DE_ACCESO'; // Reemplaza con tu token de acceso personal
+            const repoOwner = 'alanduarte123';
+            const repoName = 'alanduarte123.github.io';
+            const filePath = 'nombres.txt'; 
+            const githubToken = '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'; 
 
-            // Obtiene el contenido actual del archivo
             const fileUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
             const headers = {
                 'Authorization': `token ${githubToken}`,
@@ -55,13 +54,10 @@
                 fileContent = atob(fileData.content);
             }
 
-            // Agrega el nuevo nombre
             fileContent += name + '\n';
 
-            // Convierte el contenido actualizado a Base64
             const encodedContent = btoa(fileContent);
 
-            // Crea el commit
             const commitResponse = await fetch(fileUrl, {
                 method: 'PUT',
                 headers,
